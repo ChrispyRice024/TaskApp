@@ -4,32 +4,45 @@ import {useState} from 'react'
 export default function Todo () {
 
         const [TaskData, setTaskData] = useState({
+            id: '',
             name: '',
             desc: '',
             date: ''
         })
 
         const handleChange = (e) => {
-            setTaskData({ ...TaskData, [e.target.name]: e.target.value})
+            setTaskData({ ...TaskData, [e.target.name]: e.target.value, id:Date.now()})
             console.log('TaskData', TaskData)
         }
 
-        useEffect(() => {
-            localStorage.setItem('TaskData', JSON.stringify(TaskData))
-        }, [TaskData])
-
         const handleSubmit = (e) => {
-
-            if(!TaskData.name && !TaskData.desc){
-                alert(`Please name and describe the task.`)
-            }else if(!TaskData.name || !TaskData.desc){
-                alert(`You are missing the required field ${!TaskData.name ? 'Name Of The Task' : ''} ${!TaskData.desc ? 'Describe The Task' : ''} `)
+            e.preventDefault()
+            if (!TaskData.name || !TaskData.desc){
+                if(!TaskData.name){
+                    alert('Please Name The Task')
+                }
+                if(!TaskData.desc){
+                    alert('Please Provide A Description')
+                }
+                return
             }
-            // setTaskData({ ...TaskData, [e.target.name]: e.target.value})
-            localStorage.setItem(TaskData, JSON.stringify(TaskData))
-            // // localStorage.clear()
-            
+            const existingTasks = JSON.parse(localStorage.getItem('tasks')) || []
+            const updatedTasks = [...existingTasks, TaskData]
+
+            setTaskData({ ...TaskData, [e.target.name]: e.target.value})
+
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+            // localStorage.clear()
+            setTaskData({
+                id:'',
+                name: '',
+                desc:'',
+                date:''
+            })
+            window.location.reload()
+            console.log('Task ID', existingTasks.id)
         }
+
         console.log(localStorage)
         return(
             <div id='newTask'>
@@ -40,10 +53,17 @@ export default function Todo () {
                     <p><label htmlFor='desc'>Description</label>
                     <input type='text-box' placeholder='Enter a small description of the task' name='desc' onChange={handleChange} /></p>
                     <p><label htmlFor='due-date'>Due-Date</label>
-                    <input type='date' defaultValue={new Date().toISOString().substring(0, 10)} name='due-date' onChange={handleChange} /></p>
+                    <input type='date' defaultValue={new Date().toISOString().substring(0, 10)} name='date' onChange={handleChange} /></p>
                     <p><input type='submit' value='New Task'/></p>
                 </form>
             </div>
         )
 
 }
+
+// const saveTask = () => {
+//     const task = {
+//         name: taskData.name,
+//         desc: taskData.desc,
+//         date: JSON.stringify(taskData.date)
+//     }

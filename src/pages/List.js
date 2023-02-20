@@ -4,30 +4,45 @@ export default function List () {
     
     const [data, setData] = useState([])
 
-    // useEffect(() => {
-    //     setData(Object.keys(localStorage).map(key => {
-    //         const taskData = JSON.parse(localStorage.getItem(key))
-    //         return {...taskData, id:key}
-    //     }))
-    // }, [])
+    const deleteTask = (taskId) => {
+
+        console.log(`deleting Task ID ${taskId}`)
+
+        localStorage.removeItem(taskId);
+        setData(prevData => prevData.filter(task => task.id !== taskId));
+    }
+
+
     useEffect(() => {
         const values = Object.values(localStorage)
         const tasks = values.map((value) => JSON.parse(value))
+
         setData(tasks)
+              console.log('tasks', data)
       }, [])
       
 
     return(
         <div>
             {data.map((task, index) => {
+
             return(
+
                 <div className='task' key={index}>
+
                     <h2>{task.name}</h2>
+
                     <p>{task.desc}</p>
-                    <span>{task.date}</span>
+                    
+                    <p>{task.date}</p>
+                    {console.log('taskId', task.id)}
+                    
+                    <span><button onClick={() => deleteTask(task.id)} id='delete'>Delete</button></span>
+                
                 </div>
             )    
         })}
         </div>
     )
 }
+
