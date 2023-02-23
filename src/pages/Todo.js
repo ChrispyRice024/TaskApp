@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {useState} from 'react'
 
-export default function Todo () {
+export default function Todo (props) {
 
         const [TaskData, setTaskData] = useState({
             id: '',
@@ -14,6 +14,8 @@ export default function Todo () {
             setTaskData({ ...TaskData, [e.target.name]: e.target.value, id:Date.now()})
             console.log('TaskData', TaskData)
         }
+
+
 
         const handleSubmit = (e) => {
             e.preventDefault()
