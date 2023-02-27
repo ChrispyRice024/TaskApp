@@ -1,6 +1,11 @@
 .App {
   text-align: center;
+  background-color:		#cfe5eb;
+  height: 100vh;
+  color:	#797979;
 }
+
+
 
 .App-logo {
   height: 40vmin;
@@ -36,6 +41,35 @@
   }
 }
 
-/* .task{
+.task{
   height:auto;
-} */
+  width:350px;
+  border: 5px double;
+  background-color:#5fc1e6;
+  border-color:	#0064db;
+}
+#list{
+  display:flex;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+
+}
+#newTask{
+  border:5px dashed;
+  max-height:400px;
+  min-width:500px;
+  background-color:#5fc1e6;
+  border-color:	#0064db
+}
+#parent{
+  display:flex;
+
+}
+button{
+  background-color:#cfe5eb;
+  border-radius:5px;
+}
+input{
+  background-color:#cfe5eb;
+  border-radius:5px;
+}

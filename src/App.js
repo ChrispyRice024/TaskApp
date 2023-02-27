@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
       
       </header>
-      <div>
+      <div id='parent'>
         <Todo />
         <List />
       </div>

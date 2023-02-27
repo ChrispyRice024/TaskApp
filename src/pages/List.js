@@ -4,53 +4,54 @@ export default function List () {
     
     const [data, setData] = useState([])
 
-    const deleteTask = (task) => {
+        const deleteTask = (task) => {
 
 
-        
-        window.localStorage.removeItem(task.id);
-        const filteredData = data.filter((item) => item.id !== task.id)
-        setData(filteredData)
+            window.localStorage.removeItem(task.name);
 
-        console.log(`deleting Task ID ${task.id}`)
-        console.log('Storage after deletion', localStorage)
-        
-        // window.location.reload()
-        
-        console.log('delete fun', data)
-    }
+            const filteredData = data.filter((item) => item.name !== task.name)
+            
+            setData(filteredData)
+
+            console.log(`deleting Task ID ${task.name}`)
+            console.log('Storage after deletion', localStorage)
+            
+            // window.location.reload()
+            
+            console.log('delete fun', data)
+        }
 
 
-    useEffect(() => {
+        useEffect(() => {
 
-        const tasks = JSON.parse(Object.values(localStorage))
+            const tasks = JSON.parse(Object.values(localStorage))
 
-        setData(tasks)
-              console.log('tasks', data)
-      }, [localStorage])
+            setData(tasks)
+                console.log('tasks', data)
+        }, [])
       
 
     return(
-        <div>
-            {data.map((task, index) => {
+            <div id='list'>
+                {data.map((task, index) => {
 
-            return(
+                return(
 
-                <div className='task' key={index}>
+                    <div className='task' key={index}>
 
-                    <h2>{task.name}</h2>
+                        <h2>{task.name}</h2>
 
-                    <p>{task.desc}</p>
+                        <p>{task.desc}</p>
+                        
+                        <p>{task.date}</p>
+                        {console.log('taskId', task.id)}
+                        
+                        <span><button onClick={() => deleteTask(task.id) } id='delete'>Delete</button></span>
                     
-                    <p>{task.date}</p>
-                    {console.log('taskId', task.id)}
-                    
-                    <span><button onClick={() => deleteTask(task) } id='delete'>Delete</button></span>
-                
-                </div>
-            )    
-        })}
-        </div>
+                    </div>
+                )    
+            })}
+            </div>
     )
 }
 
