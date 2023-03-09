@@ -63,9 +63,3 @@ export default function Todo (props) {
 
 }
 
-// const saveTask = () => {
-//     const task = {
-//         name: taskData.name,
-//         desc: taskData.desc,
-//         date: JSON.stringify(taskData.date)
-//     }
